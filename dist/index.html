@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <link href="style.css" media="screen" rel="stylesheet"/>
+    <style>
+        body {
+            background: #2c3e50;
+
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .recipe-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .recipe {
+            background: #27ae60;
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+
+    <title>My Recipes</title>
+</head>
+<body>
+
+<script src="/jquery/dist/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+<div class="container">
+    <div class="buttons">
+        <input id="ingredient-input" placeholder="Ingredient" type="text">
+        <button id="search">Search!</button>
+    </div>
+    <div class="sensitives-checkbox">
+        <input id="dairyIngredients" type="checkbox">
+        <label for="dairyIngredients">Dairy</label>
+        <input id="glutenIngredients" type="checkbox">
+        <label for="glutenIngredients">Gluten</label>
+    </div>
+    <div class="recipe-container"></div>
+</div>
+
+<script id="recipe-template" type="text/x-handlebars-template">
+    {{#each recipe}}
+        <div class="recipe" data-id={{id}}>
+            <h3 style="text-align: center">{{title}}</h3>
+            <div style="display: flex; justify-content: center">
+                <img class="recipe-image" width="200" src="{{thumbnail}}" alt="{{title}}">
+            </div>
+            <h4>Ingredients</h4>
+            <ul>
+                {{#each ingredients}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/each}}
+</script>
+<script src="api/APIManager.js"></script>
+<script src="Renderer.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
