@@ -3,9 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 const {GETBYINGREDIENTS_URL} = require('../../config')
 const {
-    filterData,
-    applySensitivityFilters,
-    checkIfSensitiveIngredientIsChecked
+    HelperFunctions
 } = require('../../utils/helperFunctions')
 
 
@@ -15,9 +13,9 @@ router.get('/recipes/:ingredient', function (req, res) {
     axios.get(`${GETBYINGREDIENTS_URL}/${ingredient}`)
         .then(response => {
             const sensitiveIngredients = [];
-            const filteredData = filterData(response.data.results);
-            checkIfSensitiveIngredientIsChecked(queriesFromClient, sensitiveIngredients);
-            const filteredDataWithFilters = applySensitivityFilters(filteredData, sensitiveIngredients);
+            const filteredData = HelperFunctions.filterData(response.data.results);
+            HelperFunctions.checkIfSensitiveIngredientIsChecked(queriesFromClient, sensitiveIngredients);
+            const filteredDataWithFilters = HelperFunctions.applySensitivityFilters(filteredData, sensitiveIngredients);
             res.send(filteredDataWithFilters);
         })
         .catch(error => {
