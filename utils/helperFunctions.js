@@ -1,3 +1,4 @@
+const sensitiveIngredientsObject = require('../config').sensitiveIngredientsObject;
 const filterData = (data) => {
     return data.map(recipe => {
         return {
@@ -26,7 +27,21 @@ const applySensitivityFilters = (recipes, sensitiveIngredients) => {
     return filteredRecipes;
 }
 
+function pushSensitiveIngredients(sensitiveIngredients, sensitiveIngredient) {
+    sensitiveIngredients.push(...sensitiveIngredient);
+}
+
+function checkIfSensitiveIngredientIsChecked(queriesFromClient, sensitiveIngredients) {
+    Array.from(Object.keys(queriesFromClient)).forEach(key => {
+        if (queriesFromClient[key] === 'true') {
+            pushSensitiveIngredients(sensitiveIngredients, sensitiveIngredientsObject[key]);
+        }
+    })
+
+}
+
 module.exports = {
     filterData,
-    applySensitivityFilters
+    applySensitivityFilters,
+    checkIfSensitiveIngredientIsChecked
 }

@@ -2,21 +2,21 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const {GETBYINGREDIENTS_URL, dairyIngredients, glutenIngredients} = require('../../config')
-const {filterData, applySensitivityFilters} = require('../../utils/helperFunctions')
+const {
+    filterData,
+    applySensitivityFilters,
+    checkIfSensitiveIngredientIsChecked
+} = require('../../utils/helperFunctions')
 
 
 router.get('/recipes/:ingredient', function (req, res) {
     const ingredient = req.params.ingredient;
+    const queriesFromClient = req.query;
     axios.get(`${GETBYINGREDIENTS_URL}${ingredient}`)
         .then(response => {
             const sensitiveIngredients = [];
             const filteredData = filterData(response.data.results);
-            if (req.query.dairy === 'true') {
-                sensitiveIngredients.push(...dairyIngredients);
-            }
-            if (req.query.gluten === 'true') {
-                sensitiveIngredients.push(...glutenIngredients);
-            }
+            checkIfSensitiveIngredientIsChecked(queriesFromClient, sensitiveIngredients);
             const filteredDataWithFilters = applySensitivityFilters(filteredData, sensitiveIngredients);
             res.send(filteredDataWithFilters);
         })
