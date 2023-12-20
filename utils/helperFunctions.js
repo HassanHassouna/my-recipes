@@ -12,10 +12,12 @@ const filterData = (data) => {
 
 const applySensitivityFilters = (recipes, sensitiveIngredients) => {
     const filteredRecipes = recipes.filter(recipe => {
+        const recipeIngredientsLower = recipe.ingredients.map(ing => ing.toLowerCase());
+
         for (const sensitiveIngredient of sensitiveIngredients) {
-            const sensitiveIngredientLower = sensitiveIngredient.toLowerCase();
-            const recipeIngredientsLower = recipe.ingredients.map(ing => ing.toLowerCase());
-            if (recipeIngredientsLower.includes(sensitiveIngredientLower)) {
+            const regex = new RegExp(sensitiveIngredient.replace(/\s/g, "\\s*"), "i");
+
+            if (recipeIngredientsLower.some(ing => ing.match(regex))) {
                 return false;
             }
         }
