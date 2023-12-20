@@ -17,7 +17,7 @@ $('.recipe-container').on('click', '.recipe-image', function () {
     alert(recipe.ingredients[0])
 })
 
-$('#dairyIngredients, #glutenIngredients').on('change', function () {
+$('#dairyIngredients, #glutenIngredients, #vegeterianIngredients').on('change', function () {
     const ingredient = $('#ingredient-input').val();
     apiManager.getRecipesByIngredient(ingredient)
         .then(function () {
