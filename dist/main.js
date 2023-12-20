@@ -6,9 +6,8 @@ $('#search').on('click', function () {
     const ingredient = $('#ingredient-input').val();
     apiManager.getRecipesByIngredient(ingredient)
         .then(function () {
-            const filteredRecipes = applySensitivityFilters(apiManager.data.recipes);
-            renderer.renderData(filteredRecipes);
-        })
+            renderer.renderData((apiManager.data.recipes));
+        });
 });
 
 
@@ -22,7 +21,6 @@ $('#dairyIngredients, #glutenIngredients').on('change', function () {
     const ingredient = $('#ingredient-input').val();
     apiManager.getRecipesByIngredient(ingredient)
         .then(function () {
-            const filteredRecipes = applySensitivityFilters(apiManager.data.recipes);
-            renderer.renderData(filteredRecipes);
+            renderer.renderData((apiManager.data.recipes));
         });
 });

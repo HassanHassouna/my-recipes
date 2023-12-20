@@ -1,26 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const GETBYINGREDIENTS_URL = require('../../config').GETBYINGREDIENTS_URL;
+const {GETBYINGREDIENTS_URL, dairyIngredients, glutenIngredients} = require('../../config')
+const {filterData, applySensitivityFilters} = require('../../utils/helperFunctions')
 
-const filterData = (data) => {
-    return data.map(recipe => {
-        return {
-            id: recipe.idMeal,
-            ingredients: recipe.ingredients,
-            title: recipe.title,
-            thumbnail: recipe.thumbnail,
-            href: recipe.href,
-        }
-    })
-}
 
 router.get('/recipes/:ingredient', function (req, res) {
     const ingredient = req.params.ingredient;
     axios.get(`${GETBYINGREDIENTS_URL}${ingredient}`)
         .then(response => {
+            const sensitiveIngredients = [];
             const filteredData = filterData(response.data.results);
-            res.send(filteredData);
+            if (req.query.dairy === 'true') {
+                sensitiveIngredients.push(...dairyIngredients);
+            }
+            if (req.query.gluten === 'true') {
+                sensitiveIngredients.push(...glutenIngredients);
+            }
+            const filteredDataWithFilters = applySensitivityFilters(filteredData, sensitiveIngredients);
+            res.send(filteredDataWithFilters);
         })
         .catch(error => {
             if (error.response) {
