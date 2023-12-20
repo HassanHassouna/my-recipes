@@ -3,13 +3,12 @@ class APIManagerRecipes {
         this.data = {}
     }
 
-
     getRecipesByIngredient(ingredient) {
-        return $.get(`/recipes/${ingredient}`, (data) => {
+        return $.get(`/api/recipes/${ingredient}`, (data) => {
             this.data.recipes = data
         })
     }
-    
+
 
 }
 

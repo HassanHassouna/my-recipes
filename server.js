@@ -7,7 +7,7 @@ const api = require('./server/routes/api');
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
-app.use('/', api);
+app.use('/api/', api);
 
 app.listen(port, function () {
     console.log(`Running server on port ${port}`);
