@@ -8,6 +8,7 @@ $('#search').on('click', function () {
         .then(function () {
             renderer.renderData((apiManager.data.recipes));
         });
+
 });
 
 
@@ -24,3 +25,4 @@ $('#dairyIngredients, #glutenIngredients, #vegeterianIngredients').on('change', 
             renderer.renderData((apiManager.data.recipes));
         });
 });
+

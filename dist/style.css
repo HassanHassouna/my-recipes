@@ -48,3 +48,8 @@ label {
     margin-right: 5px;
     cursor: pointer;
 }
+
+ul {
+    column-count: 3;
+    list-style: none;
+}

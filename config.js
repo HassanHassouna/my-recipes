@@ -6,7 +6,6 @@ const sensitiveIngredientsObject = {
     dairy: dairyIngredients,
     gluten: glutenIngredients,
     vegan: vegeterianIngredients
-
 }
 module.exports = {
     GETBYINGREDIENTS_URL,

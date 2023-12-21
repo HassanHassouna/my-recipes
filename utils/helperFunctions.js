@@ -1,10 +1,9 @@
 const sensitiveIngredientsObject = require('../config').sensitiveIngredientsObject;
+const RandomChefGenerator = require('./faker')
+const randomDetails = new RandomChefGenerator()
+
 
 class HelperFunctions {
-    constructor() {
-        this.data = {}
-    }
-
     static filterData = (data) => {
         return data.map(recipe => {
             return {
@@ -13,6 +12,9 @@ class HelperFunctions {
                 title: recipe.title,
                 thumbnail: recipe.thumbnail,
                 href: recipe.href,
+                chefName: randomDetails.getRandomChefFullName(),
+                starRate: Math.floor(Math.random() * 5)
+
             }
         })
     }
