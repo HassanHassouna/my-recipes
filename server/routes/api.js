@@ -28,5 +28,3 @@ router.get('/recipes/:ingredient', function (req, res) {
 });
 
 module.exports = router;
-
-

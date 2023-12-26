@@ -66,6 +66,13 @@
                     </svg>
                 {{/times}}
             </div>
+            <div class="restaurants-container">
+                {{#each nameOfRestaurants}}
+                    <div class="restaurant">
+                        <h5>{{this}}</h5>
+                    </div>
+                {{/each}}
+            </div>
         </div>
     {{/each}}
 </script>

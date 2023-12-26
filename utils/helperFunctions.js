@@ -1,4 +1,4 @@
-const sensitiveIngredientsObject = require('../config').sensitiveIngredientsObject;
+const {sensitiveIngredientsObject, restaurants} = require('../config');
 const RandomChefGenerator = require('./faker')
 const randomDetails = new RandomChefGenerator()
 
@@ -6,6 +6,7 @@ const randomDetails = new RandomChefGenerator()
 class HelperFunctions {
     static filterData = (data) => {
         return data.map(recipe => {
+            const nameOfRestaurants = this.checkIfIdMealIsInRestaurants(recipe, restaurants);
             return {
                 id: recipe.idMeal,
                 ingredients: recipe.ingredients,
@@ -13,7 +14,8 @@ class HelperFunctions {
                 thumbnail: recipe.thumbnail,
                 href: recipe.href,
                 chefName: randomDetails.getRandomChefFullName(),
-                starRate: Math.floor(Math.random() * 5)
+                starRate: Math.floor(Math.random() * 5),
+                nameOfRestaurants: nameOfRestaurants.length > 0 ? nameOfRestaurants : ['No restaurants found that includes this meal.']
             }
         })
     }
@@ -45,8 +47,20 @@ class HelperFunctions {
             }
         })
     }
+
+    static checkIfIdMealIsInRestaurants(recipe, restaurants) {
+        const idMeal = recipe.idMeal;
+        const nameOfRestaurants = [];
+        for (const restaurant of Object.keys(restaurants)) {
+            if (restaurants[restaurant].ids.includes(idMeal)) {
+                nameOfRestaurants.push(restaurant)
+            }
+        }
+        return nameOfRestaurants;
+    }
 }
 
 module.exports = {
     HelperFunctions
 }
+
