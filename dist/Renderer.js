@@ -1,10 +1,14 @@
 class RendererRecipes {
+    constructor() {
+        this.recipeContainer = $('.recipe-container')
+        this.recipeTemplate = $('#recipe-template')
+    }
 
     renderData(data) {
-        $('.recipe-container').empty();
-        const source = $('#recipe-template').html();
+        this.recipeContainer.empty();
+        const source = this.recipeTemplate.html();
         const template = Handlebars.compile(source);
         const newHTML = template({recipe: data});
-        $('.recipe-container').append(newHTML);
+        this.recipeContainer.append(newHTML);
     }
 }

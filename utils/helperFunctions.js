@@ -14,7 +14,6 @@ class HelperFunctions {
                 href: recipe.href,
                 chefName: randomDetails.getRandomChefFullName(),
                 starRate: Math.floor(Math.random() * 5)
-
             }
         })
     }
@@ -46,7 +45,6 @@ class HelperFunctions {
             }
         })
     }
-
 }
 
 module.exports = {
