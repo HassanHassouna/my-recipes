@@ -4,14 +4,14 @@ const randomDetails = new RandomChefGenerator()
 
 
 class HelperFunctions {
-    static filterData = (data) => {
-        return data.map(recipe => {
+    static filterData = (data, giphyUrl) => {
+        return data.map((recipe, index) => {
             const nameOfRestaurants = this.checkIfIdMealIsInRestaurants(recipe, restaurants);
             return {
                 id: recipe.idMeal,
                 ingredients: recipe.ingredients,
                 title: recipe.title,
-                thumbnail: recipe.thumbnail,
+                thumbnail: giphyUrl[index].embed_url,
                 href: recipe.href,
                 chefName: randomDetails.getRandomChefFullName(),
                 starRate: Math.floor(Math.random() * 5),
@@ -50,10 +50,10 @@ class HelperFunctions {
 
     static checkIfIdMealIsInRestaurants(recipe, restaurants) {
         const idMeal = recipe.idMeal;
-        const nameOfRestaurants = [];
+        let nameOfRestaurants = ''
         for (const restaurant of Object.keys(restaurants)) {
             if (restaurants[restaurant].ids.includes(idMeal)) {
-                nameOfRestaurants.push(restaurant)
+                nameOfRestaurants += restaurant + ',';
             }
         }
         return nameOfRestaurants;

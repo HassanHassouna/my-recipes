@@ -23,6 +23,10 @@
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
         </svg>
     </div>
+    <div class="navigationButtons">
+        <button disabled id="prevBtn">Prev</button>
+        <button id="nextBtn">Next</button>
+    </div>
     <div class="sensitives-checkbox">
         <input id="dairyIngredients" type="checkbox">
         <label for="dairyIngredients">Dairy</label>
@@ -48,7 +52,8 @@
         <div class="recipe" data-id={{id}}>
             <h3 style="text-align: center">{{title}}</h3>
             <div style="display: flex; justify-content: center">
-                <img class="recipe-image" width="200" src="{{thumbnail}}" alt="{{title}}">
+                <iframe src={{thumbnail}} width="480" height="480"
+                        class="giphy-embed" allowFullScreen></iframe>
             </div>
             <h4>Ingredients</h4>
             <ul>
@@ -67,11 +72,12 @@
                 {{/times}}
             </div>
             <div class="restaurants-container">
-                {{#each nameOfRestaurants}}
-                    <div class="restaurant">
-                        <h5>{{this}}</h5>
-                    </div>
-                {{/each}}
+                <h4>Restaurants:</h4> &nbsp;
+                {{nameOfRestaurants}}
+            </div>
+            <div class="sendEmail-container">
+                <a href="mailto:?subject=%20Check%20out%20this%20recipe!%20{{title}}&body=You%20can%20see%20the%20recipe%20in%20this%20video%20%3A%20{{href}}">Share
+                    Via Mail</a>
             </div>
         </div>
     {{/each}}
@@ -83,3 +89,4 @@
 
 </body>
 </html>
+
