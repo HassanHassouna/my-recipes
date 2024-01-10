@@ -16,7 +16,6 @@ const getRecipes = () => {
         .catch(function (error) {
             alert(error)
         })
-
 }
 
 search.on('click', function () {
